@@ -1,6 +1,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Image from "next/image";
+
 
 interface JsonItem {
   id: string;
@@ -91,6 +93,15 @@ export default function Home() {
 
   return (
     <div style={{ padding: 20 }}>
+       <Image
+          className="dark:invert"
+          src="https://cdn.shopify.com/s/files/1/2423/6599/files/logolockup_sticker.png?v=1712243869"
+          alt="Next.js logo"
+          width={180}
+          height={38}
+          priority
+        />
+    
       <h1>Klaviyo Custom Feed – Enter Variant or Product ID</h1>
 
       <ul>
