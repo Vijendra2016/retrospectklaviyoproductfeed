@@ -9,12 +9,10 @@ const nextConfig = {
       {
         protocol: 'https',
         hostname: 'cdn.shopify.com',
+        pathname: '/s/files/**', // allow all Shopify image paths
       },
     ],
   },
-
-  
-
 };
 
 export default nextConfig;
