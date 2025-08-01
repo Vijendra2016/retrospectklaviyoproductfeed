@@ -21,11 +21,11 @@ export default function Home() {
         );
         const data = await response.json();
 
-        const jsonContent = data.files["viditest.json"].content;
-        const parsedData: JsonItem[] = JSON.parse(jsonContent);
+        const jsonContent: string = data.files["viditest.json"].content;
+        const parsedData: JsonItem[] = JSON.parse(jsonContent) as JsonItem[];
 
         // Mark all existing items as not new (read-only)
-        const existingItems = parsedData.map((item) => ({
+        const existingItems: JsonItem[] = parsedData.map((item: JsonItem) => ({
           ...item,
           isNew: false,
         }));
@@ -57,7 +57,7 @@ export default function Home() {
   const updateGist = async () => {
     try {
       // Strip isNew before sending to Gist
-      const gistData = items.map(({ id }) => ({ id }));
+      const gistData: { id: string }[] = items.map(({ id }) => ({ id }));
 
       const response = await fetch("/api/update-gist", {
         method: "POST",
@@ -74,10 +74,12 @@ export default function Home() {
           "https://api.github.com/gists/478e7b10fade2d4953b2563c6319490b"
         );
         const latestData = await latest.json();
-        const jsonContent = latestData.files["viditest.json"].content;
-        const refreshedItems: JsonItem[] = JSON.parse(jsonContent).map(
-          (item) => ({ ...item, isNew: false })
+        const jsonContent: string = latestData.files["viditest.json"].content;
+
+        const refreshedItems: JsonItem[] = (JSON.parse(jsonContent) as JsonItem[]).map(
+          (item: JsonItem) => ({ ...item, isNew: false })
         );
+
         setItems(refreshedItems);
       } else {
         setMessage("❌ Error: " + data.error);
@@ -89,7 +91,7 @@ export default function Home() {
 
   return (
     <div style={{ padding: 20 }}>
-      <h1>Klaviyo Custom Feed please enter the variant or product id here</h1>
+      <h1>Klaviyo Custom Feed – Enter Variant or Product ID</h1>
 
       <ul>
         {items.map((item, index) => (
